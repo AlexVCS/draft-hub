@@ -51,12 +51,14 @@ export const bioWithRanks = playerBio
       newPlayerBio.averageRank = null;
     }
 
+    
     const individualRanks = individualScoutRankingsMap.get(
       newPlayerBio.playerId
     );
     if (individualRanks && typeof individualRanks === "object") {
       Object.assign(newPlayerBio, individualRanks);
     }
+
     return newPlayerBio;
 
   })
@@ -69,3 +71,12 @@ export const bioWithRanks = playerBio
     }
     return 0;
   });
+
+  export const scoutRankKeys = [
+    "ESPN Rank",
+    "Sam Vecenie Rank",
+    "Kevin O'Connor Rank",
+    "Kyle Boone Rank",
+    "Gary Parrish Rank",
+  ];
+  
