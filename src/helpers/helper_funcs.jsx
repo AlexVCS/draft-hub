@@ -1,4 +1,4 @@
-const response = await fetch("draft_data.json");
+const response = await fetch("./draft_data.json");
 export const playerData = await response.json();
 
 const scoutRankings = playerData.scoutRankings;
