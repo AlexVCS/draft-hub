@@ -33,11 +33,10 @@ avgPlayerRanks.forEach((item) => {
 });
 
 const individualScoutRankingsMap = new Map();
-scoutRankings.forEach(rankingData => {
-  const { playerId, ...ranks } = rankingData;
+scoutRankings.forEach((rankingData) => {
+  const {playerId, ...ranks} = rankingData;
   individualScoutRankingsMap.set(playerId, ranks);
 });
-
 
 export const bioWithRanks = playerBio
   .map((playerBio) => {
@@ -51,7 +50,6 @@ export const bioWithRanks = playerBio
       newPlayerBio.averageRank = null;
     }
 
-    
     const individualRanks = individualScoutRankingsMap.get(
       newPlayerBio.playerId
     );
@@ -60,7 +58,6 @@ export const bioWithRanks = playerBio
     }
 
     return newPlayerBio;
-
   })
   .sort((a, b) => {
     if (a.averageRank < b.averageRank) {
@@ -72,11 +69,19 @@ export const bioWithRanks = playerBio
     return 0;
   });
 
-  export const scoutRankKeys = [
-    "ESPN Rank",
-    "Sam Vecenie Rank",
-    "Kevin O'Connor Rank",
-    "Kyle Boone Rank",
-    "Gary Parrish Rank",
-  ];
-  
+export const scoutRankKeys = [
+  "ESPN Rank",
+  "Sam Vecenie Rank",
+  "Kevin O'Connor Rank",
+  "Kyle Boone Rank",
+  "Gary Parrish Rank",
+];
+
+export const formatPlayerNameLink = (player) => {
+  return `/player/${player.playerId}/${player.name
+    .toLowerCase()
+    .replace(/\.|'/g, "")
+    .split(" ")
+    .filter((letter) => letter !== ".")
+    .join("-")}`;
+};

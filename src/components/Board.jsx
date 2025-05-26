@@ -6,9 +6,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
-import {bioWithRanks, scoutRankKeys} from "../helpers/helper_funcs";
+import {bioWithRanks} from "../helpers/helper_funcs";
+import {Link} from "react-router";
 
 console.log("these are the bioWithRanks", bioWithRanks);
 
@@ -18,18 +18,26 @@ const Board = () => {
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650}} aria-label="simple table">
         <TableHead>
-        <TableRow>
-          <TableCell align="center">Name</TableCell>
-          <TableCell align="right">ESPN Rank</TableCell>
-          <TableCell align="right">Sam Vecenie Rank</TableCell>
-          <TableCell align="right">Kevin O'Connor Rank</TableCell>
-          <TableCell align="right">Kyle Boone Rank</TableCell>
-          <TableCell align="right">Gary Parrish Rank</TableCell>
-        </TableRow>
+          <TableRow>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="right">ESPN Rank</TableCell>
+            <TableCell align="right">Sam Vecenie Rank</TableCell>
+            <TableCell align="right">Kevin O'Connor Rank</TableCell>
+            <TableCell align="right">Kyle Boone Rank</TableCell>
+            <TableCell align="right">Gary Parrish Rank</TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {bioWithRanks.map((player) => (
             <TableRow
+              component={Link}
+              to={`/player/${player.playerId}/${player.name
+                .toLowerCase()
+                .replace(/\.|'/g, "")
+                .split(" ")
+                .filter((letter) => letter !== ".")
+                .join("-")}`}
+              target="_blank"
               key={player.playerId}
               sx={{"&:last-child td, &:last-child th": {border: 0}}}
             >

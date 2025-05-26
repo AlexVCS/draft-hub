@@ -1,13 +1,16 @@
-import './App.css'
-import Board from './components/Board'
+import "./App.css";
+import Board from "./components/Board";
+import Profile from "./components/Profile";
 
 function App() {
-
   return (
     <>
-      <Board />
+      <PageLayout>
+        <Board />
+        <Profile />
+      </PageLayout>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
