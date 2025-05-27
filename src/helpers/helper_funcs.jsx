@@ -3,6 +3,8 @@ export const playerData = await response.json();
 
 const scoutRankings = playerData.scoutRankings;
 const playerBio = playerData.bio;
+export const seasonStats = playerData.seasonLogs
+export const measurements = playerData.measurements;
 
 export const avgPlayerRanks = scoutRankings.map((player) => {
   let sumOfRanks = 0;
@@ -84,4 +86,29 @@ export const formatPlayerNameLink = (player) => {
     .split(" ")
     .filter((letter) => letter !== ".")
     .join("-")}`;
+};
+
+export const convertToFeetInchesAndMeters = (player) => {
+  if (isNaN(player.height)) {
+    throw new Error("Invalid input. Please enter a valid number.");
+  }
+
+  const feet = Math.floor(player.height / 12);
+  const remainingInches = player.height % 12;
+  const meters = player.height * 0.0254;
+  const metersFormatted = meters.toFixed(2);
+
+  return `${feet}'${remainingInches}" (${metersFormatted}m)`;
+};
+
+export const convertToKilos = (player) => {
+  const kilograms = player.weight * 0.45359237;
+  const kilogramsRounded = Math.round(kilograms);
+  return `(${kilogramsRounded}kg)`;
+};
+
+export const calculateAge = (player) => {
+  const ageDifMs = Date.now() - new Date(player.birthDate).getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
