@@ -7,16 +7,19 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import {bioWithRanks} from "../helpers/helper_funcs";
 import {Link} from "react-router";
-
-// console.log("these are the bioWithRanks", bioWithRanks);
 
 const Board = () => {
   return (
     <Paper>
-      <TableContainer sx={{ maxHeight: 600 }}>
-        <Table sx={{minWidth: 650}} stickyHeader aria-label="simple table">
+      <TableContainer sx={{maxHeight: 600}}>
+        <Table
+          sx={{minWidth: {sm: 600, md: 900, lg: 1200}}}
+          stickyHeader
+          aria-label="simple table"
+        >
           <TableHead>
             <TableRow>
               <TableCell align="center">Name</TableCell>
@@ -53,7 +56,7 @@ const Board = () => {
                       alt={player.name}
                       src={player.photoUrl}
                     />
-                    {player.name}
+                    <Typography sx={{fontSize: {xs: '10px', md: '14px'}}}>{player.name}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell align="center">
