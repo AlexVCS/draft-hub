@@ -5,6 +5,7 @@ import {
   calculateAge,
   convertToFeetInchesAndMeters,
   convertToKilos,
+  formatBirthDate,
 } from "../helpers/helper_funcs";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -57,7 +58,9 @@ const PlayerCard = () => {
               {player.weight}lb {convertToKilos(player)}
             </Typography>
             <Typography>BIRTHDATE</Typography>
-            <Typography sx={{mb: 2}}>{player.birthDate}</Typography>
+            <Typography sx={{mb: 2}}>{formatBirthDate(player)}</Typography>
+            <Typography>COLLEGE/TEAM</Typography>
+            <Typography sx={{mb: 2}}>{player.currentTeam}</Typography>
             <Typography>AVG. SCOUTS RANKING</Typography>
             <Typography>{Math.round(player.averageRank)}</Typography>
             {/* {findPlayerSeasonStats.map((player) => (

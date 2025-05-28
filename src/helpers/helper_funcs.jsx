@@ -3,8 +3,9 @@ export const playerData = await response.json();
 
 const scoutRankings = playerData.scoutRankings;
 const playerBio = playerData.bio;
-export const seasonStats = playerData.seasonLogs
+export const seasonStats = playerData.seasonLogs;
 export const measurements = playerData.measurements;
+export const gameStats = playerData.game_logs;
 
 export const avgPlayerRanks = scoutRankings.map((player) => {
   let sumOfRanks = 0;
@@ -112,3 +113,17 @@ export const calculateAge = (player) => {
   const ageDate = new Date(ageDifMs);
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
+
+const options = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+const formatDate = (dateString) => {
+  let dateObj = new Date(dateString);
+  return dateObj.toLocaleDateString("en-US", options);
+};
+
+export const formatBirthDate = (player) => formatDate(player.birthDate);
+export const formatGameDate = (game) => formatDate(game.date);
