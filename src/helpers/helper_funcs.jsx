@@ -6,6 +6,7 @@ const playerBio = playerData.bio;
 export const seasonStats = playerData.seasonLogs;
 export const measurements = playerData.measurements;
 export const gameStats = playerData.game_logs;
+export const scoutReports = playerData.scoutingReports;
 
 export const avgPlayerRanks = scoutRankings.map((player) => {
   let sumOfRanks = 0;
