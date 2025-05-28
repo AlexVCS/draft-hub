@@ -1,5 +1,5 @@
 import Avatar from "@mui/material/Avatar";
-import {useParams} from "react-router";
+import { useParams} from "react-router";
 import {
   bioWithRanks,
   calculateAge,

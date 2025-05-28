@@ -2,22 +2,29 @@ import {Box} from "@mui/material";
 import PlayerCard from "./PlayerCard";
 import GameStats from "./GameStats";
 import SeasonStats from "./SeasonStats";
-import { useState } from "react";
+import {useState} from "react";
+import {Link} from "react-router";
 import Button from "@mui/material/Button";
+import ScoutReports from "./ScoutReports";
 
 const Profile = () => {
-  // const [showGameStats, setShowGameStats] = useState(false)
-  // const [showSeasonStats, setShowSeasonStats] = useState(false)
-  const [statsView, setStatsView] = useState("none"); 
+  const [statsView, setStatsView] = useState("none");
 
   return (
     <Box>
+      <Link to={"/"}>
+        <Button>Back to Board</Button>
+      </Link>
       <PlayerCard />
+
       {statsView === "none" && (
         <>
           <Button onClick={() => setStatsView("game")}>Show Game Stats</Button>
           <Button onClick={() => setStatsView("season")}>
             Show Season Stats
+          </Button>
+          <Button onClick={() => setStatsView("scout")}>
+            Show Scout Reports
           </Button>
         </>
       )}
@@ -27,6 +34,9 @@ const Profile = () => {
           <Button onClick={() => setStatsView("season")}>
             Show Season Stats
           </Button>
+          <Button onClick={() => setStatsView("scout")}>
+            Show Scout Reports
+          </Button>
           <Button onClick={() => setStatsView("none")}>Hide Stats</Button>
           <GameStats />
         </>
@@ -35,8 +45,22 @@ const Profile = () => {
       {statsView === "season" && (
         <>
           <Button onClick={() => setStatsView("game")}>Show Game Stats</Button>
+          <Button onClick={() => setStatsView("scout")}>
+            Show Scout Reports
+          </Button>
           <Button onClick={() => setStatsView("none")}>Hide Stats</Button>
           <SeasonStats />
+        </>
+      )}
+
+      {statsView === "scout" && (
+        <>
+          <Button onClick={() => setStatsView("game")}>Show Game Stats</Button>
+          <Button onClick={() => setStatsView("season")}>
+            Show Season Stats
+          </Button>
+          <Button onClick={() => setStatsView("none")}>Hide Scout Reports</Button>
+          <ScoutReports />
         </>
       )}
     </Box>
