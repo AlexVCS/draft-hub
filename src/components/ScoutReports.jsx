@@ -4,9 +4,7 @@ import Button from "@mui/material/Button";
 import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import {InputLabel} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
 import {useState} from "react";
 
 const ScoutReports = () => {
@@ -19,6 +17,41 @@ const ScoutReports = () => {
   const [reports, setReports] = useState(playerScoutReports);
   const [scoutName, setScoutName] = useState("");
   const [reportText, setReportText] = useState("");
+  const [scoutNameError, setScoutNameError] = useState(false);
+  const [scoutNameHelperText, setScoutNameHelperText] = useState("");
+  const [reportTextError, setReportTextError] = useState(false);
+  const [reportTextHelperText, setReportTextHelperText] = useState("");
+
+
+  const handleScoutNameChange = (e) => {
+    const newValue = e.target.value;
+    setScoutName(newValue);
+
+    if (newValue.trim() === "") {
+      setScoutNameError(true);
+      setScoutNameHelperText(
+        "Scout Name cannot be just spaces."
+      );
+    } else {
+      setScoutNameError(false);
+      setScoutNameHelperText("");
+    }
+  };
+
+  const handleReportTextChange = (e) => {
+    const newValue = e.target.value;
+    setReportText(newValue);
+
+    if (newValue.trim() === "") {
+      setReportTextError(true);
+      setReportTextHelperText(
+        "Scout Report cannot be just spaces."
+      );
+    } else {
+      setReportTextError(false);
+      setReportTextHelperText("");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,28 +70,86 @@ const ScoutReports = () => {
     setReportText("");
   };
 
-  console.log("these are the scout reports", playerScoutReports);
+  const isSubmitDisabled =
+    scoutNameError ||
+    reportTextError ||
+    scoutName.trim() === "" ||
+    reportText.trim() === "";
 
   return (
     <div>
-      {reports.length == 0
-        ? "No scouting reports available"
-        : reports.map((report) => {
-            return (
-              <div key={report.reportId}>
-                <Typography>Scout: {report.scout}</Typography>
-                <Typography>Report: {report.report}</Typography>
-              </div>
-            );
-          })}
+      <Box
+        sx={{
+          p: {xs: 2, md: 4},
+          bgcolor: "white",
+          color: "#333",
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 800,
+            letterSpacing: "0.05em",
+            color: "#333",
+            mb: 0.5,
+          }}
+        >
+          SCOUTING REPORT
+        </Typography>
 
-      <Typography>Add scout report</Typography>
+        <Box
+          sx={{
+            width: "80px",
+            height: "4px",
+            backgroundColor: "#007bff",
+            mb: {xs: 2, md: 3},
+          }}
+        />
+
+        {reports.map((report, index) => (
+          <Box
+            key={report.reportId}
+            sx={{
+              mb: index < reports.length - 1 ? {xs: 2, md: 3} : 0,
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                fontWeight: 600,
+                color: "#333",
+                mb: 1,
+              }}
+            >
+              Scout: {report.scout}
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: "#333",
+                lineHeight: 1.6,
+                fontSize: "1rem",
+              }}
+            >
+              Report: {report.report}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+
+      <Typography variant="h6" sx={{pl: {xs: 2, md: 4}}}>
+        ADD SCOUTING REPORT
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            gap: 1,
+            pl: {xs: 2, md: 4},
+            pt: 2,
+            maxWidth: "sm",
           }}
         >
           <FormControl>
@@ -67,8 +158,11 @@ const ScoutReports = () => {
               variant="outlined"
               value={scoutName}
               placeholder="Enter your name here"
-              onChange={(e) => setScoutName(e.target.value)}
+              onChange={handleScoutNameChange}
               required
+              fullWidth
+              error={scoutNameError}
+              helperText={scoutNameHelperText}
             />
           </FormControl>
           <FormControl>
@@ -80,11 +174,15 @@ const ScoutReports = () => {
               rows={4}
               fullWidth
               value={reportText}
-              onChange={(e) => setReportText(e.target.value)}
+              onChange={handleReportTextChange}
               required
+              error={reportTextError}
+              helperText={reportTextHelperText}
             />
           </FormControl>
-          <Button type="submit">Submit</Button>
+          <Button disabled={isSubmitDisabled} type="submit">
+            Submit
+          </Button>
         </Box>
       </form>
     </div>
