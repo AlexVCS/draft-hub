@@ -23,12 +23,14 @@ const SeasonStats = () => {
           <TableHead>
             <TableRow>
               <TableCell align="center">Season</TableCell>
-              <TableCell align="right">Points</TableCell>
-              <TableCell align="right">Rebounds</TableCell>
-              <TableCell align="right">Assists</TableCell>
-              <TableCell align="right">FG%</TableCell>
-              <TableCell align="right">3P%</TableCell>
-              <TableCell align="right">eFG%</TableCell>
+              <TableCell align="center">League</TableCell>
+              <TableCell align="center">Points</TableCell>
+              <TableCell align="center">Rebounds</TableCell>
+              <TableCell align="center">Assists</TableCell>
+              <TableCell align="center">Turnovers</TableCell>
+              <TableCell align="center">FG%</TableCell>
+              <TableCell align="center">3P%</TableCell>
+              <TableCell align="center">eFG%</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,9 +50,11 @@ const SeasonStats = () => {
                     {player.Season}
                   </Box>
                 </TableCell>
+                <TableCell align="center">{player.League}</TableCell>
                 <TableCell align="center">{player.PTS}</TableCell>
                 <TableCell align="center">{player.TRB}</TableCell>
                 <TableCell align="center">{player.AST}</TableCell>
+                <TableCell align="center">{player.TOV}</TableCell>
                 <TableCell align="center">{player["FG%"]}</TableCell>
                 <TableCell align="center">{player["3P%"]}</TableCell>
                 <TableCell align="center">{player["eFG%"]}</TableCell>

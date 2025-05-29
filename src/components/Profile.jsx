@@ -37,7 +37,7 @@ const Profile = () => {
           <Button onClick={() => setStatsView("scout")}>
             Show Scout Reports
           </Button>
-          <Button onClick={() => setStatsView("none")}>Hide Stats</Button>
+          <Button onClick={() => setStatsView("none")}>Hide Game Stats</Button>
           <GameStats />
         </>
       )}
@@ -48,7 +48,7 @@ const Profile = () => {
           <Button onClick={() => setStatsView("scout")}>
             Show Scout Reports
           </Button>
-          <Button onClick={() => setStatsView("none")}>Hide Stats</Button>
+          <Button onClick={() => setStatsView("none")}>Hide Season Stats</Button>
           <SeasonStats />
         </>
       )}

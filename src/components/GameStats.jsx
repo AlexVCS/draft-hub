@@ -22,12 +22,15 @@ const GameStats = () => {
         <Table sx={{minWidth: 800}} stickyHeader aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Game</TableCell>
-              <TableCell align="right">Points</TableCell>
-              <TableCell align="right">Rebounds</TableCell>
-              <TableCell align="right">Assists</TableCell>
-              <TableCell align="right">FG%</TableCell>
-              <TableCell align="right">+/-</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Opponent</TableCell>
+              <TableCell align="center">Points</TableCell>
+              <TableCell align="center">Rebounds</TableCell>
+              <TableCell align="center">Assists</TableCell>
+              <TableCell align="center">Turnovers</TableCell>
+              <TableCell align="center">FG%</TableCell>
+              <TableCell align="center">FT%</TableCell>
+              <TableCell align="center">+/-</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -45,16 +48,15 @@ const GameStats = () => {
                     }}
                   >
                     {formatGameDate(game)}
-                    <br />
-                    {game.team} vs. {game.opponent}
-                    <br />
-                    {game.homeTeamPts} {game.visitorTeamPts}
                   </Box>
                 </TableCell>
+                <TableCell align="center">{game.opponent}</TableCell>
                 <TableCell align="center">{game.pts}</TableCell>
                 <TableCell align="center">{game.reb}</TableCell>
                 <TableCell align="center">{game.ast}</TableCell>
+                <TableCell align="center">{game.tov}</TableCell>
                 <TableCell align="center">{game["fg%"]}</TableCell>
+                <TableCell align="center">{game["ft%"]}</TableCell>
                 <TableCell align="center">{game.plusMinus}</TableCell>
               </TableRow>
             ))}
