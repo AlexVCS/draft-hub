@@ -13,12 +13,13 @@ const Profile = () => {
   return (
     <Box>
       <Link to={"/"}>
-        <Button>Back to Board</Button>
+        <Button variant="contained">Back to Board</Button>
       </Link>
+
       <PlayerCard />
 
       {statsView === "none" && (
-        <>
+        <Box sx={{display: "flex", justifyContent: "center"}}>
           <Button onClick={() => setStatsView("game")}>Show Game Stats</Button>
           <Button onClick={() => setStatsView("season")}>
             Show Season Stats
@@ -26,7 +27,7 @@ const Profile = () => {
           <Button onClick={() => setStatsView("scout")}>
             Show Scout Reports
           </Button>
-        </>
+        </Box>
       )}
 
       {statsView === "game" && (
@@ -48,7 +49,9 @@ const Profile = () => {
           <Button onClick={() => setStatsView("scout")}>
             Show Scout Reports
           </Button>
-          <Button onClick={() => setStatsView("none")}>Hide Season Stats</Button>
+          <Button onClick={() => setStatsView("none")}>
+            Hide Season Stats
+          </Button>
           <SeasonStats />
         </>
       )}
@@ -59,7 +62,9 @@ const Profile = () => {
           <Button onClick={() => setStatsView("season")}>
             Show Season Stats
           </Button>
-          <Button onClick={() => setStatsView("none")}>Hide Scout Reports</Button>
+          <Button onClick={() => setStatsView("none")}>
+            Hide Scout Reports
+          </Button>
           <ScoutReports />
         </>
       )}

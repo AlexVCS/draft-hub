@@ -19,7 +19,11 @@ const GameStats = () => {
   return (
     <Paper>
       <TableContainer sx={{maxHeight: 600}}>
-        <Table sx={{minWidth: 800}} stickyHeader aria-label="simple table">
+        <Table
+          sx={{minWidth: {sm: 600, md: 900, lg: 1300}}}
+          stickyHeader
+          aria-label="simple table"
+        >
           <TableHead>
             <TableRow>
               <TableCell align="center">Date</TableCell>
