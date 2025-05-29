@@ -24,13 +24,13 @@ const GameStats = () => {
             <TableRow>
               <TableCell align="center">Date</TableCell>
               <TableCell align="center">Opponent</TableCell>
-              <TableCell align="right">Points</TableCell>
-              <TableCell align="right">Rebounds</TableCell>
-              <TableCell align="right">Assists</TableCell>
-              <TableCell align="right">Turnovers</TableCell>
-              <TableCell align="right">FG%</TableCell>
-              <TableCell align="right">FT%</TableCell>
-              <TableCell align="right">+/-</TableCell>
+              <TableCell align="center">Points</TableCell>
+              <TableCell align="center">Rebounds</TableCell>
+              <TableCell align="center">Assists</TableCell>
+              <TableCell align="center">Turnovers</TableCell>
+              <TableCell align="center">FG%</TableCell>
+              <TableCell align="center">FT%</TableCell>
+              <TableCell align="center">+/-</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

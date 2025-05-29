@@ -46,8 +46,8 @@ const ScoutReports = () => {
         : reports.map((report) => {
             return (
               <div key={report.reportId}>
-                <Typography>{report.scout}</Typography>
-                <Typography>{report.report}</Typography>
+                <Typography>Scout: {report.scout}</Typography>
+                <Typography>Report: {report.report}</Typography>
               </div>
             );
           })}
