@@ -28,7 +28,7 @@ const Board = () => {
       <Box sx={{display: "flex", justifyContent: "center"}}>
         <TableContainer sx={{maxHeight: 600}}>
           <Table
-            sx={{minWidth: {sm: 600, md: 900, lg: 1300}, borderRight: "none"}}
+            sx={{minWidth: {sm: 600, md: 900, lg: 1300}}}
             stickyHeader
             aria-label="simple table"
           >

@@ -62,9 +62,11 @@ const ScoutReports = () => {
           }}
         >
           <FormControl>
-            <InputLabel htmlFor="name">Scout Name</InputLabel>
-            <Input
+            <TextField
+              label="Scout Name"
+              variant="outlined"
               value={scoutName}
+              placeholder="Enter your name here"
               onChange={(e) => setScoutName(e.target.value)}
               required
             />
@@ -80,8 +82,6 @@ const ScoutReports = () => {
               value={reportText}
               onChange={(e) => setReportText(e.target.value)}
               required
-              // onChange={handleName}
-              // error={isError}
             />
           </FormControl>
           <Button type="submit">Submit</Button>

@@ -1,5 +1,5 @@
 import Avatar from "@mui/material/Avatar";
-import { useParams} from "react-router";
+import {useParams} from "react-router";
 import {
   bioWithRanks,
   calculateAge,
@@ -7,72 +7,218 @@ import {
   convertToKilos,
   formatBirthDate,
 } from "../helpers/helper_funcs";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 const PlayerCard = () => {
-  const player = useParams();
+  const playerID = useParams();
 
   const findPlayerBio = bioWithRanks.filter(
-    (p) => player.playerId == p.playerId
+    (p) => playerID.playerId == p.playerId
   );
+
+  const player = findPlayerBio[0];
+
   return (
     <>
-      {findPlayerBio.map((player) => (
-        <Card
-          key={player.playerId}
+      <Box
+        sx={{
+          width: "100%",
+          backgroundColor: "#01295C",
+          color: "white",
+        }}
+      >
+        <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            minWidth: 300,
+            alignItems: {xs: "center", md: "flex-start"},
+            p: 4,
+            gap: 4,
+            flexDirection: {xs: "column", md: "row"},
           }}
         >
-          <CardContent
+          <Avatar
+            alt={player.name}
+            src={player.photoUrl}
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-              gap: "2px",
+              width: {xs: 128, md: 180},
+              height: {xs: 128, md: 180},
+              borderRadius: 0,
+              border: "4px solid white",
+              flexShrink: 0,
             }}
-          >
-            <Avatar
-              alt={player.name}
-              src={player.photoUrl}
-              sx={{width: 128, height: 128}}
-              variant="square"
-            />
-            <Typography variant="h6" sx={{mb: 2}}>
-              {player.name}
+            variant="square"
+          />
+
+          <Box sx={{flexGrow: 1, textAlign: {xs: "center", md: "left"}}}>
+            <Typography variant="body1" sx={{opacity: 0.8, mb: 1}}>
+              {player.currentTeam}
             </Typography>
-            <Typography>AGE</Typography>
-            <Typography sx={{mb: 2}}>{calculateAge(player)}</Typography>
-            <Typography>HEIGHT</Typography>
-            <Typography sx={{mb: 2}}>
-              {convertToFeetInchesAndMeters(player)}
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{
+                fontWeight: 700,
+                fontSize: {xs: "2.5rem", md: "3.5rem"},
+                lineHeight: 1.1,
+                mb: 2,
+              }}
+            >
+              {player.name.toUpperCase()}
             </Typography>
-            <Typography>WEIGHT</Typography>
-            <Typography sx={{mb: 2}}>
-              {player.weight}lb {convertToKilos(player)}
-            </Typography>
-            <Typography>BIRTHDATE</Typography>
-            <Typography sx={{mb: 2}}>{formatBirthDate(player)}</Typography>
-            <Typography>COLLEGE/TEAM</Typography>
-            <Typography sx={{mb: 2}}>{player.currentTeam}</Typography>
-            <Typography>AVG. SCOUTS RANKING</Typography>
-            <Typography>{Math.round(player.averageRank)}</Typography>
-            {/* {findPlayerSeasonStats.map((player) => (
-            <Typography key={player.playerId}>
-              {player.PTS}
-            </Typography>
-          ))} */}
-          </CardContent>
-        </Card>
-      ))}
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            backgroundColor: "white",
+            color: "#333",
+            py: 3,
+            px: 4,
+          }}
+        >
+          <Grid container spacing={{xs: 3, md: 2}}>
+            <Grid item xs={12} md={4}>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    HEIGHT
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {convertToFeetInchesAndMeters(findPlayerBio[0])}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    WEIGHT
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {player.weight}lb {convertToKilos(player)}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    COUNTRY
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {player.homeCountry}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    LAST ATTENDED
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {player.currentTeam}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    AGE
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {calculateAge(player)} years
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block", textAlign: "center"}}
+                  >
+                    BIRTHDATE
+                  </Typography>
+                  <Typography variant="body1" sx={{textAlign: "center"}}>
+                    {formatBirthDate(player)}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="caption"
+                    sx={{color: "#666", display: "block"}}
+                  >
+                    AVG. SCOUT RANKING
+                  </Typography>
+                  <Typography sx={{textAlign: "center"}} variant="body1">
+                    {Math.round(player.averageRank)}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
     </>
   );
 };
 
 export default PlayerCard;
+
+{
+  /* // <Card
+    //   key={player.playerId}
+    //   variant="outlined"
+    //   sx={{
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     alignItems: {xs: "center", md: "flex-start"},
+    //     // minWidth: 300,
+    //   }}
+    // >
+    //   <CardContent
+    //     sx={{
+    //       display: "flex",
+    //       flexDirection: {xs: "column", md: "row"},
+    //       alignItems: {xs: "center", md: "flex-start"},
+    //       textAlign: "center",
+    //       gap: "2px",
+    //     }}
+    //   >
+    //     <Avatar
+    //       alt={player.name}
+    //       src={player.photoUrl}
+    //       sx={{width: 128, height: 128}}
+    //       variant="square"
+    //     />
+    //     <Typography variant="h6" sx={{mb: 2}}>
+    //       {player.name}
+    //     </Typography>
+    //     <Typography>AGE</Typography>
+    //     <Typography sx={{mb: 2}}>{calculateAge(player)}</Typography>
+    //     <Typography>HEIGHT</Typography>
+    //     <Typography sx={{mb: 2}}>
+    //       {convertToFeetInchesAndMeters(player)}
+    //     </Typography>
+    //     <Typography>WEIGHT</Typography>
+    //     <Typography sx={{mb: 2}}>
+    //       {player.weight}lb {convertToKilos(player)}
+    //     </Typography>
+    //     <Typography>BIRTHDATE</Typography>
+    //     <Typography sx={{mb: 2}}>{formatBirthDate(player)}</Typography>
+    //     <Typography>COLLEGE/TEAM</Typography>
+    //     <Typography sx={{mb: 2}}>{player.currentTeam}</Typography>
+    //     <Typography>AVG. SCOUTS RANKING</Typography>
+    //     <Typography>{Math.round(player.averageRank)}</Typography>
+    //     {/* {findPlayerSeasonStats.map((player) => (
+    //     <Typography key={player.playerId}>
+    //       {player.PTS}
+    //     </Typography>
+    //   ))} */
+}
+//   </CardContent>
+// </Card> */}
