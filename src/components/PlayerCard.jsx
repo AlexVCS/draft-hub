@@ -78,10 +78,10 @@ const PlayerCard = () => {
             px: 4,
           }}
         >
-          <Grid container spacing={{xs: 3, md: 2}}>
-            <Grid item xs={12} md={4}>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
+          <Grid container spacing={{xs: 5, md: 2}}>
+            <Grid item xs={2} md={4}>
+              <Grid container spacing={{xs: 6, md: 3}}>
+                <Grid item xs={7}>
                   <Typography
                     variant="caption"
                     sx={{color: "#666", display: "block", textAlign: "center"}}

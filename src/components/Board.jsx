@@ -62,7 +62,7 @@ const Board = () => {
                         flexDirection: "column",
                         alignItems: "center",
                         minWidth: {xs: "80px", md: "auto"},
-                        maxWidth: {xs: "120px", md: "none"}
+                        maxWidth: {xs: "120px", md: "none"},
                       }}
                     >
                       <Avatar
@@ -92,7 +92,14 @@ const Board = () => {
                     <br />
                     {typeof player["ESPN Rank"] === "number" &&
                     player["ESPN Rank"] <= 20 ? (
-                      <span>Top 20</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Top 20
+                      </Box>
                     ) : (
                       ""
                     )}
@@ -102,7 +109,14 @@ const Board = () => {
                     <br />
                     {typeof player["Sam Vecenie Rank"] === "number" &&
                     player["Sam Vecenie Rank"] <= 20 ? (
-                      <span>Top 20</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Top 20
+                      </Box>
                     ) : (
                       ""
                     )}
@@ -112,7 +126,14 @@ const Board = () => {
                     <br />
                     {typeof player["Kevin O'Connor Rank"] === "number" &&
                     player["Kevin O'Connor Rank"] <= 20 ? (
-                      <span>Top 20</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Top 20
+                      </Box>
                     ) : (
                       ""
                     )}
@@ -122,7 +143,14 @@ const Board = () => {
                     <br />
                     {typeof player["Kyle Boone Rank"] === "number" &&
                     player["Kyle Boone Rank"] <= 20 ? (
-                      <span>Top 20</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Top 20
+                      </Box>
                     ) : (
                       ""
                     )}
@@ -132,7 +160,14 @@ const Board = () => {
                     <br />
                     {typeof player["Gary Parrish Rank"] === "number" &&
                     player["Gary Parrish Rank"] <= 20 ? (
-                      <span>Top 20</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Top 20
+                      </Box>
                     ) : (
                       ""
                     )}
