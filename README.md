@@ -1,12 +1,65 @@
-# Draft Hub
+[![alex-linkedin-shield]][alex-linkedin-url]
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+[About](#about) |
+[Screenshots](#screenshots) |
+[Built With](#built-with) |
+[Local Project Setup](#local-project-setup) |
+[Clone the repo](#clone-the-repo) |
+[Contact](#contact)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## About
 
-## Expanding the ESLint configuration
+Find draft prospects and learn more about them. Write scout reports and see their game and season stats.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshots
+
+Board                           |         Player Profile UI
+:--------------------------------------:|:-------------------------:
+![Board UI](./public/board_ui.png)  |  ![Player Profile UI](./public/player_profile_ui.png)
+
+## Built With
+
+[![React.JS]][React-url][![MaterialUI]][MUI-url][![JavaScript]][Javascript-url]
+
+<div align='right'>
+
+[Back to Top](#top)
+
+</div>
+
+## Local Project Setup
+
+Git, Node.js, and PNPM (or your package manager of choice) are required to run this project locally. 
+
+### Clone the repo
+
+Copy this and run it in your terminal:
+
+```bash
+git clone https://github.com/AlexVCS/draft-hub.git
+cd draft-hub
+pnpm i
+```
+
+Run the app by running `pnpm run dev`. Then open the UI of the app at `http://localhost:5173`
+
+## Contact
+
+Alex Curtis-Slep - [GitHub](https://github.com/AlexVCS) / [Bluesky](https://bsky.app/profile/alexcurtisslep.bsky.social) / alexcurtisslep@gmail.com
+
+<div align='right'>
+
+[Back to Top](#top)
+
+</div>
+
+[alex-linkedin-shield]: https://img.shields.io/badge/-Alex's_LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[alex-linkedin-url]: https://www.linkedin.com/in/alexcurtisslep/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[MaterialUI]: https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white
+[MUI-url]: https://mui.com/
+[JavaScript]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
+[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
