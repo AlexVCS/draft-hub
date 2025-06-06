@@ -2,10 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from "react-router";
 import './index.css'
-import Board from './components/Board.jsx';
-import Profile from './components/Profile.jsx';
+import Board from './components/Board.tsx';
+import Profile from './components/Profile.tsx';
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
