@@ -8,10 +8,43 @@ import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {bioWithRanks} from "../helpers/helper_funcs";
 import {Link} from "react-router";
 import Header from "./Header";
 import {useEffect} from "react";
+import {useQuery} from "@tanstack/react-query";
+
+interface ProspectData {
+  prospects: {
+    id: string;
+    source_id: string;
+    first_name: string;
+    last_name: string;
+    name: string;
+    position: string;
+    height: number;
+    weight: number;
+    experience: string;
+    birth_place: string;
+    team_name: string;
+    conference: {
+      id: string;
+      name: string;
+      alias: string;
+    };
+    division: {
+      id: string;
+      name: string;
+      alias: string;
+    };
+    team: {
+      id: string;
+      name: string;
+      market: string;
+      alias: string;
+    };
+  }[];
+}
+
 
 const Board = () => {
   useEffect(() => {
@@ -21,6 +54,32 @@ const Board = () => {
       document.body.style.overflow = "unset";
     };
   }, []);
+
+  const getProspects = async (): Promise<ProspectData> => {
+    try {
+      const baseUrl = import.meta.env.DEV
+        ? import.meta.env.VITE_API_URL_DEV
+        : import.meta.env.VITE_API_URL_PROD;
+      const url = `${baseUrl}/`;
+      const response = await fetch(url);
+      return response.json();
+    } catch (error) {
+      console.error(`This call didn't work, this is the ${error}`);
+      throw error;
+    }
+  };
+
+  const {isLoading, data, error} = useQuery({
+    queryKey: ["prospects"],
+    queryFn: () => getProspects(),
+    staleTime: Infinity,
+  });
+
+  if (isLoading) return <h1>Loading...</h1>;
+  if (error) return <h1>{JSON.stringify(error)}</h1>;
+  if (!data) return <h1>Didn't receive any prospects</h1>;
+  const {prospects} = data;
+
 
   return (
     <Paper>
@@ -35,24 +94,24 @@ const Board = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Name</TableCell>
-                <TableCell align="center">ESPN Rank</TableCell>
-                <TableCell align="center">Sam Vecenie Rank</TableCell>
-                <TableCell align="center">Kevin O'Connor Rank</TableCell>
-                <TableCell align="center">Kyle Boone Rank</TableCell>
-                <TableCell align="center">Gary Parrish Rank</TableCell>
+                <TableCell align="center">School/Team</TableCell>
+                <TableCell align="center">Height</TableCell>
+                <TableCell align="center">Weight</TableCell>
+                <TableCell align="center">Position</TableCell>
+                <TableCell align="center">Top Prospect</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {bioWithRanks.map((player) => (
+              {prospects.map((player) => (
                 <TableRow
                   component={Link}
-                  to={`/player/${player.playerId}/${player.name
+                  to={`/player/${player.id}/${player.name
                     .toLowerCase()
                     .replace(/\.|'/g, "")
                     .split(" ")
                     .filter((letter) => letter !== ".")
                     .join("-")}`}
-                  key={player.playerId}
+                  key={player.id}
                   sx={{"&:last-child td, &:last-child th": {border: 0}}}
                 >
                   <TableCell component="th" scope="row">
@@ -65,11 +124,11 @@ const Board = () => {
                         maxWidth: {xs: "120px", md: "none"},
                       }}
                     >
-                      <Avatar
+                      {/* <Avatar
                         sx={{padding: 0, alignSelf: "center"}}
                         alt={player.name}
                         src={player.photoUrl}
-                      />
+                      /> */}
                       <Typography
                         sx={{
                           paddingTop: 1,
@@ -88,7 +147,7 @@ const Board = () => {
                     </Box>
                   </TableCell>
                   <TableCell align="center">
-                    {player["ESPN Rank"]}
+                    {player.team_name}
                     <br />
                     {typeof player["ESPN Rank"] === "number" &&
                     player["ESPN Rank"] <= 20 ? (

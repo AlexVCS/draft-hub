@@ -1,0 +1,5 @@
+{
+  "name": "draft-hub-backend",
+  "compatibility_date": "2025-05-25",
+  "main": "server/index.ts"
+}

@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
+    "target": "ES2017",
+    "module": "ES2020",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "lib": ["ES2020", "DOM"],
     "outDir": "./built",
     "allowJs": true,
-    "target": "es5",
     "noEmit": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client"]
   },
   "include": ["./src/**/*"]
 }
