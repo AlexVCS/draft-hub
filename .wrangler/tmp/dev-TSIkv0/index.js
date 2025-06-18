@@ -1689,7 +1689,7 @@ app.get("/env", (c) => {
 app.use(
   "/*",
   cors({
-    origin: ["http://localhost:5173", "https://nbadrafthub25.netlify.app/"]
+    origin: ["http://localhost:5173", "https://nbadrafthub25.netlify.app"]
   })
 );
 app.get("/", /* @__PURE__ */ __name(async function getProspects(c) {
