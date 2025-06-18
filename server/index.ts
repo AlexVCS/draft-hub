@@ -43,4 +43,27 @@ app.get('/', async function getProspects(c) {
   }
 })
 
+// app.get('/', async function getProspects(c) {
+//   try {
+//     const SECRET_KEY = c.env.SECRET_KEY
+//     const url = 'https://api.sportradar.com/draft/nba/trial/v1/en/2025/prospects.json';
+//     const options = {
+//       method: 'GET',
+//       headers: {
+//         accept: 'application/json',
+//         'x-api-key': SECRET_KEY
+//       }
+//     };
+
+//     const response = await fetch(url, options)
+//     const formatResponse = await response.json()
+//     const results = formatResponse.prospects
+//     return c.json({ prospects: results })    
+//   } catch (error) {
+//     console.error('Full error:', error);
+//     c.status(500)
+//     return c.json({ error: `Could not grab data: ${error.message}` })
+//   }
+// })
+
 export default app

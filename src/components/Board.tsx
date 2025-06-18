@@ -12,6 +12,7 @@ import {Link} from "react-router";
 import Header from "./Header";
 import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
+import { convertToFeetInchesAndMeters, convertToKilos } from "../helpers/helper_funcs";
 
 interface ProspectData {
   prospects: {
@@ -164,41 +165,13 @@ const Board = () => {
                     )}
                   </TableCell>
                   <TableCell align="center">
-                    {player["Sam Vecenie Rank"]}
-                    <br />
-                    {typeof player["Sam Vecenie Rank"] === "number" &&
-                    player["Sam Vecenie Rank"] <= 20 ? (
-                      <Box
-                        component="span"
-                        sx={{
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Top 20
-                      </Box>
-                    ) : (
-                      ""
-                    )}
+                    {convertToFeetInchesAndMeters(player)}
                   </TableCell>
                   <TableCell align="center">
-                    {player["Kevin O'Connor Rank"]}
-                    <br />
-                    {typeof player["Kevin O'Connor Rank"] === "number" &&
-                    player["Kevin O'Connor Rank"] <= 20 ? (
-                      <Box
-                        component="span"
-                        sx={{
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Top 20
-                      </Box>
-                    ) : (
-                      ""
-                    )}
+                    {player.weight}lb {convertToKilos(player)}
                   </TableCell>
                   <TableCell align="center">
-                    {player["Kyle Boone Rank"]}
+                    {player.position}
                     <br />
                     {typeof player["Kyle Boone Rank"] === "number" &&
                     player["Kyle Boone Rank"] <= 20 ? (
