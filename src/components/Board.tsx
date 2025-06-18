@@ -61,7 +61,8 @@ const Board = () => {
       const baseUrl = import.meta.env.DEV
         ? import.meta.env.VITE_API_URL_DEV
         : import.meta.env.VITE_API_URL_PROD;
-      const url = `${baseUrl}/`;
+      console.log('this is the baseUrl', baseUrl)
+      const url = `${baseUrl}`;
       const response = await fetch(url);
       return response.json();
     } catch (error) {
