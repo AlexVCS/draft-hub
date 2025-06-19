@@ -5,6 +5,7 @@ import "./index.css";
 import Board from "./components/Board.tsx";
 import Profile from "./components/Profile.tsx";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import PlayerDetails from "./components/PlayerDetails.tsx";
 
 const queryClient = new QueryClient();
 

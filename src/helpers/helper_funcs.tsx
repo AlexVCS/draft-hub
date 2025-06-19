@@ -128,3 +128,58 @@ const formatDate = (dateString) => {
 
 export const formatBirthDate = (player) => formatDate(player.birthDate);
 export const formatGameDate = (game) => formatDate(game.date);
+
+
+export interface YouTubeThumbnail {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface YouTubeSnippet {
+  publishedAt: string;
+  channelId: string;
+  title: string;
+  description: string;
+  thumbnails: {
+    default: YouTubeThumbnail;
+    medium: YouTubeThumbnail;
+    high: YouTubeThumbnail;
+  };
+  channelTitle: string;
+  liveBroadcastContent: string;
+  publishTime: string;
+}
+
+export interface YouTubeId {
+  kind: string;
+  videoId?: string; // Video ID is present for videos
+  playlistId?: string; // Could be present for playlists, etc.
+  channelId?: string; // Could be present for channels
+}
+
+export interface YouTubeSearchResultItem {
+  kind: string;
+  etag: string;
+  id: YouTubeId;
+  snippet: YouTubeSnippet;
+}
+
+export interface YouTubePageInfo {
+  totalResults: number;
+  resultsPerPage: number;
+}
+
+export interface YouTubeSearchResponse {
+  kind: string;
+  etag: string;
+  nextPageToken?: string;
+  prevPageToken?: string;
+  regionCode?: string;
+  pageInfo: YouTubePageInfo;
+  items: YouTubeSearchResultItem[];
+}
+
+export interface YouTubeData {
+  results: YouTubeSearchResponse;
+}
