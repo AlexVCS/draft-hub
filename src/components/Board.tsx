@@ -8,11 +8,23 @@ import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import {Link} from "react-router";
 import Header from "./Header";
-import {useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
-import { convertToFeetInchesAndMeters, convertToKilos } from "../helpers/helper_funcs";
+import {
+  convertToFeetInchesAndMeters,
+  convertToKilos,
+} from "../helpers/helper_funcs";
+import {
+  Checkbox,
+  Fab,
+  TableSortLabel,
+  useScrollTrigger,
+  Zoom,
+} from "@mui/material";
+import {KeyboardArrowUp} from "@mui/icons-material";
 
 interface ProspectData {
   prospects: {
@@ -27,6 +39,7 @@ interface ProspectData {
     experience: string;
     birth_place: string;
     team_name: string;
+    top_prospect?: boolean;
     conference: {
       id: string;
       name: string;
@@ -46,46 +59,97 @@ interface ProspectData {
   }[];
 }
 
+const getProspects = async (): Promise<ProspectData> => {
+  try {
+    const baseUrl = import.meta.env.DEV
+      ? import.meta.env.VITE_API_URL_DEV
+      : import.meta.env.VITE_API_URL_PROD;
+    console.log("this is the baseUrl", baseUrl);
+    const url = `${baseUrl}`;
+    const response = await fetch(url);
+    return response.json();
+  } catch (error) {
+    console.error(`This call didn't work, this is the ${error}`);
+    throw error;
+  }
+};
+
+const getTopProspects = async (): Promise<ProspectData> => {
+  try {
+    const baseUrl = import.meta.env.DEV
+      ? import.meta.env.VITE_API_URL_DEV
+      : import.meta.env.VITE_API_URL_PROD;
+    console.log("this is the baseUrl", baseUrl);
+    const url = `${baseUrl}/topprospects`;
+    const response = await fetch(url);
+    return response.json();
+  } catch (error) {
+    console.error(`This call didn't work, this is the ${error}`);
+    throw error;
+  }
+};
 
 const Board = () => {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
+  const [showTopProspectsFirst, setShowTopProspectsFirst] = useState(true);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
+  const {
+    isLoading: topProspectsLoading,
+    data: topProspects,
+    error: topProspectsError,
+  } = useQuery({
+    queryKey: ["topProspects"],
+    queryFn: () => getTopProspects(),
+    staleTime: Infinity,
+  });
 
-  const getProspects = async (): Promise<ProspectData> => {
-    try {
-      const baseUrl = import.meta.env.DEV
-        ? import.meta.env.VITE_API_URL_DEV
-        : import.meta.env.VITE_API_URL_PROD;
-      console.log('this is the baseUrl', baseUrl)
-      const url = `${baseUrl}`;
-      const response = await fetch(url);
-      return response.json();
-    } catch (error) {
-      console.error(`This call didn't work, this is the ${error}`);
-      throw error;
-    }
-  };
-
-  const {isLoading, data, error} = useQuery({
-    queryKey: ["prospects"],
+  const {
+    isLoading: ProspectsLoading,
+    data: allProspects,
+    error: prospectsError,
+  } = useQuery({
+    queryKey: ["allProspects"],
     queryFn: () => getProspects(),
     staleTime: Infinity,
   });
 
-  if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <h1>{JSON.stringify(error)}</h1>;
-  if (!data) return <h1>Didn't receive any prospects</h1>;
-  const {prospects} = data;
+  const getSortedProspects = () => {
+    if (!allProspects?.prospects) return [];
 
+    return [...allProspects.prospects].sort((a, b) => {
+      if (showTopProspectsFirst) {
+        if (a.top_prospect && !b.top_prospect) return -1;
+        if (!a.top_prospect && b.top_prospect) return 1;
+        return 0;
+      } else {
+        if (a.top_prospect && !b.top_prospect) return 1;
+        if (!a.top_prospect && b.top_prospect) return -1;
+        return 0;
+      }
+    });
+  };
+
+  if (topProspectsLoading || ProspectsLoading) return <h1>Loading...</h1>;
+  if (topProspectsError || prospectsError)
+    return <h1>{topProspectsError?.message || prospectsError?.message}</h1>;
+
+  const sortedProspects = getSortedProspects();
 
   return (
     <Paper>
       <Header />
+      <Box sx={{display: "flex", justifyContent: "center", p: 2}}>
+        <Button
+          variant={showTopProspectsFirst ? "contained" : "outlined"}
+          onClick={() => setShowTopProspectsFirst(!showTopProspectsFirst)}
+          sx={{mr: 2}}
+        >
+          {showTopProspectsFirst
+            ? "Toggle Top Prospects Last"
+            : "Toggle Top Prospects First"}
+        </Button>
+      </Box>
+
       <Box sx={{display: "flex", justifyContent: "center"}}>
         <TableContainer sx={{maxHeight: 600}}>
           <Table
@@ -100,11 +164,20 @@ const Board = () => {
                 <TableCell align="center">Height</TableCell>
                 <TableCell align="center">Weight</TableCell>
                 <TableCell align="center">Position</TableCell>
-                <TableCell align="center">Top Prospect</TableCell>
+                <TableCell align="center">
+                  Top Prospect
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    sx={{fontSize: "10px", opacity: 0.7}}
+                  >
+                    ({showTopProspectsFirst ? "Showing first" : "Showing last"})
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {prospects.map((player) => (
+              {sortedProspects.map((player) => (
                 <TableRow
                   component={Link}
                   to={`/player/${player.id}/${player.name
@@ -114,7 +187,12 @@ const Board = () => {
                     .filter((letter) => letter !== ".")
                     .join("-")}`}
                   key={player.id}
-                  sx={{"&:last-child td, &:last-child th": {border: 0}}}
+                  sx={{
+                    "&:last-child td, &:last-child th": {border: 0},
+                    backgroundColor: player.top_prospect
+                      ? "rgba(76, 175, 80, 0.05)"
+                      : "inherit",
+                  }}
                 >
                   <TableCell component="th" scope="row">
                     <Box
@@ -126,11 +204,6 @@ const Board = () => {
                         maxWidth: {xs: "120px", md: "none"},
                       }}
                     >
-                      {/* <Avatar
-                        sx={{padding: 0, alignSelf: "center"}}
-                        alt={player.name}
-                        src={player.photoUrl}
-                      /> */}
                       <Typography
                         sx={{
                           paddingTop: 1,
@@ -142,67 +215,24 @@ const Board = () => {
                             wordBreak: "break-word",
                             hyphens: "auto",
                           },
+                          fontWeight: player.top_prospect ? 600 : 400,
                         }}
                       >
                         {player.name}
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell align="center">
-                    {player.team_name}
-                    <br />
-                    {typeof player["ESPN Rank"] === "number" &&
-                    player["ESPN Rank"] <= 20 ? (
-                      <Box
-                        component="span"
-                        sx={{
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Top 20
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                  </TableCell>
+                  <TableCell align="center">{player.team_name}</TableCell>
                   <TableCell align="center">
                     {convertToFeetInchesAndMeters(player)}
                   </TableCell>
                   <TableCell align="center">
                     {player.weight}lb {convertToKilos(player)}
                   </TableCell>
+                  <TableCell align="center">{player.position}</TableCell>
                   <TableCell align="center">
-                    {player.position}
-                    <br />
-                    {typeof player["Kyle Boone Rank"] === "number" &&
-                    player["Kyle Boone Rank"] <= 20 ? (
-                      <Box
-                        component="span"
-                        sx={{
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Top 20
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                  </TableCell>
-                  <TableCell align="center">
-                    {player["Gary Parrish Rank"]}
-                    <br />
-                    {typeof player["Gary Parrish Rank"] === "number" &&
-                    player["Gary Parrish Rank"] <= 20 ? (
-                      <Box
-                        component="span"
-                        sx={{
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Top 20
-                      </Box>
-                    ) : (
-                      ""
+                    {player.top_prospect && (
+                      <Checkbox defaultChecked color="success" />
                     )}
                   </TableCell>
                 </TableRow>

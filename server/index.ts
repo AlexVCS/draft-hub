@@ -43,27 +43,51 @@ app.get('/', async function getProspects(c) {
   }
 })
 
-// app.get('/', async function getProspects(c) {
-//   try {
-//     const SECRET_KEY = c.env.SECRET_KEY
-//     const url = 'https://api.sportradar.com/draft/nba/trial/v1/en/2025/prospects.json';
-//     const options = {
-//       method: 'GET',
-//       headers: {
-//         accept: 'application/json',
-//         'x-api-key': SECRET_KEY
-//       }
-//     };
+app.get('/topprospects', async function getTopProspects(c) {
+  try {
+    const SECRET_KEY = c.env.SECRET_KEY
+    const url = 'https://api.sportradar.com/draft/nba/trial/v1/en/2025/top_prospects.json';
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'x-api-key': SECRET_KEY
+      }
+    };
 
-//     const response = await fetch(url, options)
-//     const formatResponse = await response.json()
-//     const results = formatResponse.prospects
-//     return c.json({ prospects: results })    
-//   } catch (error) {
-//     console.error('Full error:', error);
-//     c.status(500)
-//     return c.json({ error: `Could not grab data: ${error.message}` })
-//   }
-// })
+    const response = await fetch(url, options)
+    const formatResponse = await response.json()
+    const results = formatResponse.prospects
+    return c.json({ prospects: results })    
+  } catch (error) {
+    console.error('Full error:', error);
+    c.status(500)
+    return c.json({ error: `Could not grab data: ${error.message}` })
+  }
+})
+
+
+app.get('/images', async function getPlayerImages(c) {
+  try {
+    const SECRET_KEY = c.env.SECRET_KEY
+    const url = 'https://api.sportradar.com/nba-images-t3/getty_premium/headshots/players/2025/manifest.json';
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'x-api-key': SECRET_KEY
+      }
+    };
+
+    const response = await fetch(url, options)
+    const formatResponse = await response.json()
+    const results = formatResponse
+    return c.json({ results })    
+  } catch (error) {
+    console.error('Full error:', error);
+    c.status(500)
+    return c.json({ error: `Could not grab data: ${error.message}` })
+  }
+})
 
 export default app
