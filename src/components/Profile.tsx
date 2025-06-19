@@ -78,22 +78,7 @@ const Profile = () => {
         <Button variant="contained">Back to Board</Button>
       </Link>
 
-      {/* Stats/Reports/Videos navigation buttons */}
       <Box component="span" sx={{pl: {xs: 2, md: 3}}}>
-        <Button
-          onClick={() => setStatsView("game")}
-          variant={statsView === "game" ? "contained" : "outlined"}
-          sx={{mr: 1}}
-        >
-          Game Stats
-        </Button>
-        <Button
-          onClick={() => setStatsView("season")}
-          variant={statsView === "season" ? "contained" : "outlined"}
-          sx={{mr: 1}}
-        >
-          Season Stats
-        </Button>
         <Button
           onClick={() => setStatsView("scout")}
           variant={statsView === "scout" ? "contained" : "outlined"}
