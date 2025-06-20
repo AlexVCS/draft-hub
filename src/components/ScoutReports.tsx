@@ -1,5 +1,4 @@
 import {useParams} from "react-router";
-import {scoutReports} from "../helpers/helper_funcs";
 import Button from "@mui/material/Button";
 import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -9,12 +8,10 @@ import {useState} from "react";
 
 const ScoutReports = () => {
   const player = useParams();
+  const {playerName} = useParams<{playerName: string}>();
 
-  const playerScoutReports = scoutReports.filter(
-    (p) => player.playerId == p.playerId
-  );
 
-  const [reports, setReports] = useState(playerScoutReports);
+  const [reports, setReports] = useState([]);
   const [scoutName, setScoutName] = useState("");
   const [reportText, setReportText] = useState("");
   const [scoutNameError, setScoutNameError] = useState(false);
@@ -85,6 +82,16 @@ const ScoutReports = () => {
           color: "#333",
         }}
       >
+        <Typography variant="h4"
+          sx={{
+            fontWeight: 800,
+            letterSpacing: "0.05em",
+            color: "#333",}}>
+          {playerName
+            ?.split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")}
+        </Typography>
         <Typography
           variant="h6"
           sx={{

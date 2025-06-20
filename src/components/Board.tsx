@@ -18,6 +18,7 @@ import {
   convertToKilos,
 } from "../helpers/helper_funcs";
 import {
+  Autocomplete,
   Checkbox,
   Fab,
   TableSortLabel,
@@ -180,7 +181,7 @@ const Board = () => {
               {sortedProspects.map((player) => (
                 <TableRow
                   component={Link}
-                  to={`/player/${player.id}/${player.name
+                  to={`/player/${player.name
                     .toLowerCase()
                     .replace(/\.|'/g, "")
                     .split(" ")

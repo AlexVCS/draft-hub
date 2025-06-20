@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-// .wrangler/tmp/bundle-ZXRG7n/strip-cf-connecting-ip-header.js
+// .wrangler/tmp/bundle-B5PnRI/strip-cf-connecting-ip-header.js
 function stripCfConnectingIPHeader(input, init) {
   const request = new Request(input, init);
   request.headers.delete("CF-Connecting-IP");
@@ -1738,10 +1738,9 @@ app.get("/topprospects", /* @__PURE__ */ __name(async function getTopProspects(c
     return c.json({ error: `Could not grab data: ${error.message}` });
   }
 }, "getTopProspects"));
-app.get("/player/:playerName/videos", /* @__PURE__ */ __name(async function getPlayerImages(c) {
+app.get("/player/:playerName/videos", /* @__PURE__ */ __name(async function getPlayerVideos(c) {
   try {
     const YOUTUBE_KEY = c.env.YOUTUBE_KEY;
-    console.log(YOUTUBE_KEY);
     const playerName = c.req.param("playerName");
     const query = `${playerName} highlights`;
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&key=${YOUTUBE_KEY}`;
@@ -1754,28 +1753,7 @@ app.get("/player/:playerName/videos", /* @__PURE__ */ __name(async function getP
     c.status(500);
     return c.json({ error: `Could not grab data: ${error.message}` });
   }
-}, "getPlayerImages"));
-app.get("/images", /* @__PURE__ */ __name(async function getPlayerImages2(c) {
-  try {
-    const SECRET_KEY = c.env.SECRET_KEY;
-    const url = "https://api.sportradar.com/nba-images-t3/getty_premium/headshots/players/2025/manifest.json";
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "x-api-key": SECRET_KEY
-      }
-    };
-    const response = await fetch(url, options);
-    const formatResponse = await response.json();
-    const results = formatResponse;
-    return c.json({ results });
-  } catch (error) {
-    console.error("Full error:", error);
-    c.status(500);
-    return c.json({ error: `Could not grab data: ${error.message}` });
-  }
-}, "getPlayerImages"));
+}, "getPlayerVideos"));
 var server_default = app;
 
 // node_modules/.pnpm/wrangler@4.19.1/node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
@@ -1819,7 +1797,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-ZXRG7n/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-B5PnRI/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1851,7 +1829,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-ZXRG7n/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-B5PnRI/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

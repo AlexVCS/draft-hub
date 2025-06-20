@@ -15,7 +15,7 @@ createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Board />} />
-          <Route path="player/:playerId/:playerName" element={<Profile />} />
+          <Route path="player/:playerName" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

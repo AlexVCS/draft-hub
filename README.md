@@ -11,7 +11,7 @@
 
 ## About
 
-Find draft prospects and learn more about them. Write scout reports and see their game and season stats.
+Find draft prospects and learn more about them. Write scout reports and see highlights from their games.
 
 ## Screenshots
 
@@ -21,7 +21,7 @@ Board                           |         Player Profile UI
 
 ## Built With
 
-[![React.JS]][React-url][![MaterialUI]][MUI-url][![JavaScript]][Javascript-url]
+[![React.JS]][React-url][![MaterialUI]][MUI-url][![Hono]][Hono-url][![TypeScript]][Typescript-url]
 
 <div align='right'>
 
@@ -43,7 +43,7 @@ cd draft-hub
 pnpm i
 ```
 
-Run the app by running `pnpm run dev`. Then open the UI of the app at `http://localhost:5173`
+Run the app by running `pnpm run dev` in one terminal and `pnpm run serve` in another terminal. Then open the UI of the app at `http://localhost:5173`
 
 ## Contact
 
@@ -57,9 +57,11 @@ Alex Curtis-Slep - [GitHub](https://github.com/AlexVCS) / [Bluesky](https://bsky
 
 [alex-linkedin-shield]: https://img.shields.io/badge/-Alex's_LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [alex-linkedin-url]: https://www.linkedin.com/in/alexcurtisslep/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[Hono]: https://img.shields.io/badge/Hono-black?style=for-the-badge&logo=hono
 [MaterialUI]: https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white
 [MUI-url]: https://mui.com/
-[JavaScript]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
-[JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[Hono-url]: https://hono.dev/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Typescript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[Typescript-url]: https://www.typescriptlang.org/

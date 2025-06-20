@@ -11,23 +11,18 @@ const YouTubeEmbedCard: React.FC<YouTubeEmbedCardProps> = ({video}) => {
   const {title, description, channelTitle, publishedAt} = video.snippet;
 
   if (!videoId) {
-    // If it's not a video (e.g., a channel or playlist), we might skip or handle differently
     return null;
   }
 
-  // Construct the YouTube embed URL
-  // `autoplay=0`: Prevents autoplay
-  // `rel=0`: Prevents showing related videos from other channels at the end (though YouTube sometimes overrides this)
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`;
 
   return (
     <Card sx={{height: "100%", display: "flex", flexDirection: "column"}}>
-      {/* Responsive iframe container for 16:9 aspect ratio */}
       <Box
         sx={{
           position: "relative",
           width: "100%",
-          paddingTop: "56.25%", // 16:9 Aspect Ratio (height / width = 9 / 16 = 0.5625)
+          paddingTop: "56.25%"
         }}
       >
         <iframe
@@ -41,7 +36,7 @@ const YouTubeEmbedCard: React.FC<YouTubeEmbedCardProps> = ({video}) => {
             left: 0,
             width: "100%",
             height: "100%",
-            border: 0, // Remove iframe border
+            border: 0
           }}
         ></iframe>
       </Box>
@@ -53,7 +48,7 @@ const YouTubeEmbedCard: React.FC<YouTubeEmbedCardProps> = ({video}) => {
           {channelTitle} - {new Date(publishedAt).toLocaleDateString()}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{mt: 1}}>
-          {description.substring(0, 100)}... {/* Truncate description */}
+          {description.substring(0, 100)}... 
         </Typography>
       </CardContent>
     </Card>
