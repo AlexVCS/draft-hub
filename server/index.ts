@@ -1,6 +1,7 @@
-import { Query } from '@tanstack/react-query';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors'
+import prospectData from '../prospects.json'
+import topProspectData from '../topProspects.json'
 
 type Bindings = {
   SECRET_KEY: string
@@ -28,20 +29,8 @@ app.use('/*',
 
 app.get('/', async function getProspects(c) {
   try {
-    const SECRET_KEY = c.env.SECRET_KEY
-    const url = 'https://api.sportradar.com/draft/nba/trial/v1/en/2025/prospects.json';
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        'x-api-key': SECRET_KEY
-      }
-    };
-
-    const response = await fetch(url, options)
-    const formatResponse = await response.json()
-    const results = formatResponse.prospects
-    return c.json({ prospects: results })    
+    const results = prospectData.prospects;
+    return c.json({ prospects: results }); 
   } catch (error) {
     console.error('Full error:', error);
     c.status(500)
@@ -51,20 +40,8 @@ app.get('/', async function getProspects(c) {
 
 app.get('/topprospects', async function getTopProspects(c) {
   try {
-    const SECRET_KEY = c.env.SECRET_KEY
-    const url = 'https://api.sportradar.com/draft/nba/trial/v1/en/2025/top_prospects.json';
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        'x-api-key': SECRET_KEY
-      }
-    };
-
-    const response = await fetch(url, options)
-    const formatResponse = await response.json()
-    const results = formatResponse.prospects
-    return c.json({ prospects: results })    
+    const results = topProspectData.prospects;
+    return c.json({ prospects: results });  
   } catch (error) {
     console.error('Full error:', error);
     c.status(500)
